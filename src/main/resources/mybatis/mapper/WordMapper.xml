@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bizwell.mapper.WordMapper">
+    <resultMap id="BaseResultMap" type="com.bizwell.entity.Word">
+        <result column="id" property="id"/>
+        <result column="sentence_id" property="sentenceId"/>
+        <result column="content" property="content"/>
+        <result column="nature" property="nature"/>
+        <result column="factor" property="factor"/>
+    </resultMap>
+    <insert id="save" parameterType="com.bizwell.entity.Word" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO dianping_word(sentence_id,content,nature,factor)
+      VALUES ( #{sentenceId}, #{content}, #{nature}, #{factor})
+    </insert>
+    <insert id="batchSave" parameterType="java.util.List">
+        <!--<selectKey resultType="java.lang.Long" keyProperty="id"-->
+        <!--order="AFTER">-->
+        <!--SELECT LAST_INSERT_ID()-->
+        <!--</selectKey>-->
+        INSERT INTO dianping_word(sentence_id,content,nature,factor)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.sentenceId},
+            #{item.content},
+            #{item.nature},
+            #{item.factor}
+            )
+        </foreach>
+    </insert>
+</mapper>

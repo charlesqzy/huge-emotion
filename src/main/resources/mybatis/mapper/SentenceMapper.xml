@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bizwell.mapper.SentenceMapper">
+    <resultMap id="BaseResultMap" type="com.bizwell.entity.Sentence">
+        <result column="id" property="id"/>
+        <result column="comment_id" property="commentId"/>
+        <result column="content" property="content"/>
+        <result column="expression" property="expression"/>
+        <result column="score" property="score"/>
+    </resultMap>
+    <insert id="save" parameterType="com.bizwell.entity.Sentence" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO dianping_sentence(comment_id,content,expression,score)
+      VALUES ( #{commentId}, #{content}, #{expression}, #{score})
+    </insert>
+
+    <update id="update" parameterType="com.bizwell.entity.Sentence">
+        UPDATE dianping_sentence
+        SET expression = #{expression},score=#{score}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
